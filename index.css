@@ -1,0 +1,103 @@
+    html {
+        text-size-adjust:100%;
+        -webkit-text-size-adjust:100%;
+        background-color: #224;
+        //background-color: #0001;
+        margin: 0;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .all{
+        align-content:center;
+        vertical-align: middle;
+        //padding: 10vw;
+    }
+
+    .space{
+        margin: 10vw;
+        //padding: 10vw;
+    }
+    
+    .area_top{
+        color: #fff;
+        font-weight: bold;
+        font-size: 4vmax;
+        background: #67f5;
+        padding: 2vmax 0;
+        margin: 5vmax 0;
+        
+        font-family: "DIN Alternate", sans-serif;
+        font-weight:bolder;
+        
+    }
+
+    .area_buttons{
+        align-content: center;
+        align-items: center;
+    }
+
+
+    .text_title{
+        font-size: 3vmin;
+        text-align: left;
+        padding: 0vmin 9vw;
+        //margin: 0 auto;
+    }
+    
+    
+    .btn:hover, .btn_small:hover, .btn_big:hover{
+        color: #235;
+        background: #fe8;
+        box-shadow: 4px 4px 0px #A5FF;
+        //box-shadow: 0px 0px 5px #fff8;
+        letter-spacing: 0.2em;
+    }
+
+    .btn_big{
+        
+
+        //font-family: "DIN Alternate", sans-serif;
+        font-family: "zen-kaku-gothic-antique", sans-serif;
+        font-weight: 700;
+        //font-style: normal;
+        
+        //box-shadow: 0px 0px 20px #64f5;
+        //border-block: 10vmax;
+        //border: 10vmax;
+        margin: 1vmax;
+        
+        font-size: 2vmin;
+
+        width: 30vmin;
+        
+        display: inline-block;
+        padding: 1vmin 0vmin;
+        cursor: pointer;
+        -webkit-transition: all 0.3s;
+        letter-spacing: 0.1em;
+        border-radius: 0.5rem;
+        
+        
+        color: #FFF;
+        
+        background-color: #A5F8;
+
+        border-style:none;
+        
+        //margin: 0.00vmax;
+        //-webkit-appearance: none;
+        //font-weight: bolder;
+        //border: 10vmax;
+        //color: #212529;
+        //text-align: center;
+        //text-decoration: none;
+        //-webkit-user-select: none;
+        //-moz-user-select: none;
+        //-ms-user-select: none;
+        //user-select: none;
+    }
