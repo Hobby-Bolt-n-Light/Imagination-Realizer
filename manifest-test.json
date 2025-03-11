@@ -24,11 +24,11 @@
       ]
     },
     {
-      "chipFamily": "ESP32-C6",
+      "chipFamily": "ESP32C6",
       "parts": [
         {
           "path": "ESP_Module_IR-Sender.ino.bootloader.bin",
-          "offset": 4096
+          "offset": 0
         },
         {
           "path": "ESP_Module_IR-Sender.ino.partitions.bin",
