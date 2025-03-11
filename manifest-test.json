@@ -1,3 +1,10 @@
+/*
+"/Users/chihiro/Library/Arduino15/packages/esp32/tools/esptool_py/4.9.dev3/esptool" --chip esp32 --port "/dev/cu.usbserial-A5525B18F0" --baud 1500000  --before default_reset --after hard_reset write_flash  -z --flash_mode keep --flash_freq keep --flash_size keep 
+0x1000 "/Users/chihiro/Library/Caches/arduino/sketches/3385F4FBBDAF75CBA8BA00BAB095742A/AtomMatrix_Rainbow.ino.bootloader.bin" 
+0x8000 "/Users/chihiro/Library/Caches/arduino/sketches/3385F4FBBDAF75CBA8BA00BAB095742A/AtomMatrix_Rainbow.ino.partitions.bin" 
+0xe000 "/Users/chihiro/Library/Arduino15/packages/esp32/hardware/esp32/3.1.1/tools/partitions/boot_app0.bin" 
+0x10000 "/Users/chihiro/Library/Caches/arduino/sketches/3385F4FBBDAF75CBA8BA00BAB095742A/AtomMatrix_Rainbow.ino.bin" 
+*/
 {
   "name": "ATOM-Matrix Test",
   "version": "1.0.0",
@@ -6,8 +13,20 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "AtomMatrix_test_merged.bin",
-          "offset": 0
+          "path": "AtomMatrix_Rainbow.ino.bootloader.bin",
+          "offset": 0x1000
+        }
+        {
+          "path": "AtomMatrix_Rainbow.ino.partitions.bin",
+          "offset": 0x8000
+        }
+        {
+          "path": "boot_app0.bin",
+          "offset": 0xe000
+        }
+        {
+          "path": "AtomMatrix_Rainbow.ino.bin",
+          "offset": 0x10000
         }
       ]
     }
