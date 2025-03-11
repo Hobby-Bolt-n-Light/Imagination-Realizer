@@ -1,0 +1,15 @@
+{
+  "name": "ATOM-Matrix Test",
+  "version": "1.0.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "progs/AtomMatrix_Rainbow.ino.merged.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
