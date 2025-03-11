@@ -6,7 +6,7 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "progs/AtomMatrix_Rainbow.ino.merged.bin",
+          "path": "AtomMatrix_test_merged.bin",
           "offset": 0
         }
       ]
