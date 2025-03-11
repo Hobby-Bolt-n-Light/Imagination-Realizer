@@ -7,11 +7,11 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "AtomMatrix_Rainbow.ino.bootloader.bin",
+          "path": "AtomMatrix_Rainbow_bootloader.bin",
           "offset": 4096
         },
         {
-          "path": "AtomMatrix_Rainbow.ino.partitions.bin",
+          "path": "AtomMatrix_Rainbow_partitions.bin",
           "offset": 32768
         },
         {
@@ -19,7 +19,7 @@
           "offset": 57344
         },
         {
-          "path": "AtomMatrix_Rainbow.ino.bin",
+          "path": "AtomMatrix_Rainbow.bin",
           "offset": 65536
         }
       ]
