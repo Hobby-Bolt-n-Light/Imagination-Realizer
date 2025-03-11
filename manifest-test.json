@@ -9,15 +9,15 @@
         {
           "path": "AtomMatrix_Rainbow.ino.bootloader.bin",
           "offset": 4096
-        }
+        },
         {
           "path": "AtomMatrix_Rainbow.ino.partitions.bin",
           "offset": 32768
-        }
+        },
         {
           "path": "boot_app0.bin",
           "offset": 57344
-        }
+        },
         {
           "path": "AtomMatrix_Rainbow.ino.bin",
           "offset": 65536
