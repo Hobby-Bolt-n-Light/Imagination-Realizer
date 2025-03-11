@@ -24,7 +24,7 @@
       ]
     },
     {
-      "chipFamily": "ESP32C6",
+      "chipFamily": "ESP32-C6",
       "parts": [
         {
           "path": "ESP_Module_IR-Sender.ino.bootloader.bin",
