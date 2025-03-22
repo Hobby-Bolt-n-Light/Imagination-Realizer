@@ -94,6 +94,7 @@
         let player;
         var idx;
         let seq_list;
+        var currentTime;
 
         // シーケンスファイル読み込み
         console.log("*** Loading Sequence File ***");
@@ -127,14 +128,25 @@
             let checkTime;
             if (event.data === YT.PlayerState.PLAYING) {
                 // 動画が再生中のとき
+                idx=0;
+                while(true){
+                    console.log('looping:' + idx);
+                        if(seq_list[idx*3] == ''){
+                    }else if(parseFloat(seq_list[idx*3]) <= currentTime){
+                        idx += 1;
+                    }else{
+                        break;
+                    }
+                }
                 checkTime = setInterval(() => {
-                    const currentTime = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
+                    currentTime = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
                     //console.log(currentTime);
                     document.getElementById("timeId").textContent = currentTime;
                 }, 50);
             } else if (event.data === YT.PlayerState.PAUSED) {
                 // 動画が一時停止されたとき
                 clearInterval(checkTime); // 監視を停止
+                
             }
         }
 
