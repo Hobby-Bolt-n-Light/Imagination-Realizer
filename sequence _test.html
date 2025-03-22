@@ -110,6 +110,8 @@
         console.log(seq_list);
         */
         loadSequence();
+
+        document.getElementById("indexId").textContent = "最終更新：";
         
         // iframe のセットアップ
         function onYouTubeIframeAPIReady() {
@@ -242,7 +244,6 @@
             }
             const seq_text = await response.text();
             console.log(seq_text);
-            document.getElementById("indexId").textContent = seq_text;
             seq_list = seq_text.split(/\t|\n/);
             console.log(seq_list);
         }
