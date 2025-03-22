@@ -197,6 +197,10 @@
         async function fileRead() {
             console.log("fileRead");
             const response = await fetch("timetrack-fantasmic.txt");
+            if (!response.ok) {
+                throw new Error(`レスポンスステータス: ${response.status}`);
+                console.log("シーケンスファイル読み込みでエラーが発生しました");
+            }
             const text = await response.text();
             document.getElementById("indexId").textContent = text;
         }
