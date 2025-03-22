@@ -202,6 +202,7 @@
                 console.log("シーケンスファイル読み込みでエラーが発生しました");
             }
             const text = await response.text();
+            console.log(text);
             document.getElementById("indexId").textContent = text;
         }
          
