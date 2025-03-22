@@ -85,6 +85,7 @@
     <script>
     
         // YouTube IFrame API スクリプトタグを生成
+        console.log("*** Setting YouTube API ***");
         const scriptTag = document.createElement('script');
         scriptTag.src = 'https://www.youtube.com/iframe_api';
         document.body.appendChild(scriptTag); // body終了前にタグを出力
@@ -92,12 +93,24 @@
         // グローバルでプレイヤーを定義
         let player;
         var idx;
+
+        // シーケンスファイル読み込み
+        console.log("*** Loading Sequence File ***");
+        const response = await fetch("timetrack-fantasmic.txt");
+        if (!response.ok) {
+            //throw new Error(`レスポンスステータス: ${response.status}`);
+            console.log("- Error on Loading Sequence File");
+        }
+        const seq_text = await response.text();
+        console.log(seq_text);
+        const seq_list = text.split(/\t|\n/);
+        console.log(seq_list);
         
         // iframe のセットアップ
         function onYouTubeIframeAPIReady() {
           player = new YT.Player('mov1', {
             //videoId: 'xxxxxxxxxxx', // 動画ID　
-            videoId: 'GVp65rqchko',
+            //videoId: 'GVp65rqchko',
             videoId: 'DjCv8GiRoWE',
             events: {
               onStateChange: onPlayerStateChange // 再生状態の変化を検知
@@ -135,38 +148,9 @@
                 port = await navigator.serial.requestPort();
                 await port.open({ baudRate: 115200 });
 
-                //sendSerial();
-                /*
-                while (port.readable) {
-                    const reader = port.readable.getReader();
-    
-                    try {
-                        while (true) {
-                            const { value, done } = await reader.read();
-                            if (done) {
-                                addSerial("Canceled\n");
-                                break;
-                            }
-                            const inputValue = new TextDecoder().decode(value);
-                            addSerial(inputValue);
-                        }
-                    } catch (error) {
-                        addSerial("Error: Read" + error + "\n");
-                    } finally {
-                        reader.releaseLock();
-                    }
-                }
-                */
             } catch (error) {
                 addSerial("Error: Open" + error + "\n");
             }
-        }
-        
-    
-        function addSerial(msg) {
-            //var textarea = document.getElementById('outputArea');
-            //textarea.value += msg;
-            //textarea.scrollTop = textarea.scrollHeight;
         }
     
         async function sendSerial() {
