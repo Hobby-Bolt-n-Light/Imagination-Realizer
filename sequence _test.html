@@ -204,10 +204,8 @@
             const text = await response.text();
             console.log(text);
             document.getElementById("indexId").textContent = text;
-            const messages = text.split('\n');
+            const messages = text.split(/\t|\n/);
             console.log(messages);
-            const block = messages.split('\t');
-            console.log(block);
         }
          
 
