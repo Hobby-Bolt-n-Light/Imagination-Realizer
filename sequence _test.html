@@ -148,7 +148,7 @@
 
                     if(seq_list[idx*3] == ''){
                         document.getElementById("timeId").textContent = "Finished";
-                    }else if(parseFloat(seq_list[idx*3]) <= currentTime){
+                    }else if(parseFloat(seq_list[idx*3]) <= (currentTime-0.2)){
                         console.log('now Index:' + idx);
                         console.log('Content:' + seq_list[idx*3+2]);
                         sendSerial_seq(seq_list[idx*3+2]);
