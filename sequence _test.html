@@ -151,7 +151,7 @@
                     }else if(parseFloat(seq_list[idx*3]) <= currentTime){
                         console.log('now Index:' + idx);
                         console.log('Content:' + seq_list[idx*3+2]);
-                        sendSerial(seq_list[idx*3+2]);
+                        sendSerial_seq(seq_list[idx*3+2]);
                         idx += 1;
                     }else{
                         document.getElementById("timeId").textContent = currentTime;
