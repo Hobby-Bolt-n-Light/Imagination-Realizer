@@ -147,6 +147,8 @@
                     if(seq_list[idx*3] == ''){
                         document.getElementById("timeId").textContent = "Finished";
                     }else if(parseFloat(seq_list[idx*3]) <= currentTime){
+                        console.log('now Index:' + idx);
+                        sendSerial(seq_list[idx*3+2]);
                         idx += 1;
                     }else{
                         document.getElementById("timeId").textContent = currentTime;
@@ -176,6 +178,20 @@
 
             } catch (error) {
                 addSerial("Error: Open" + error + "\n");
+            }
+        }
+    
+        async function sendSerial(var text2send) {
+            //var text = document.getElementById('sendInput').value;
+            //document.getElementById('sendInput').value = "";
+
+            console.log("sendSerial()");
+
+            if(port.connected){
+                const encoder = new TextEncoder();
+                const writer = port.writable.getWriter();
+                await writer.write(encoder.encode(text2send + "\n"));
+                writer.releaseLock();
             }
         }
     
