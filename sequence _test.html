@@ -204,6 +204,8 @@
             const text = await response.text();
             console.log(text);
             document.getElementById("indexId").textContent = text;
+            const messages = text.split('\n');
+            console.log(messages);
         }
          
 
