@@ -205,7 +205,7 @@
             const seq_text = await response.text();
             console.log(seq_text);
             document.getElementById("indexId").textContent = seq_text;
-            seq_list = text.split(/\t|\n/);
+            seq_list = seq_text.split(/\t|\n/);
             console.log(seq_list);
         }
          
