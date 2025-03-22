@@ -111,7 +111,7 @@
         */
         loadSequence();
 
-        document.getElementById("indexId").textContent = '最終更新：タイムラグ調整A';
+        document.getElementById("indexId").textContent = '最終更新：タイムラグ調整B';
         
         // iframe のセットアップ
         function onYouTubeIframeAPIReady() {
@@ -148,7 +148,7 @@
 
                     if(seq_list[idx*3] == ''){
                         document.getElementById("timeId").textContent = "Finished";
-                    }else if(parseFloat(seq_list[idx*3]) <= (currentTime-0.2)){
+                    }else if(parseFloat(seq_list[idx*3]) <= (currentTime-1.0)){
                         console.log('now Index:' + idx);
                         console.log('Content:' + seq_list[idx*3+2]);
                         sendSerial_seq(seq_list[idx*3+2]);
