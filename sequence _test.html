@@ -111,7 +111,7 @@
         */
         loadSequence();
 
-        document.getElementById("indexId").textContent = '最終更新：';
+        document.getElementById("indexId").textContent = '最終更新：送信内容ログ';
         
         // iframe のセットアップ
         function onYouTubeIframeAPIReady() {
@@ -150,6 +150,7 @@
                         document.getElementById("timeId").textContent = "Finished";
                     }else if(parseFloat(seq_list[idx*3]) <= currentTime){
                         console.log('now Index:' + idx);
+                        console.log('Content:' + seq_list[idx*3+2]);
                         sendSerial(seq_list[idx*3+2]);
                         idx += 1;
                     }else{
@@ -183,18 +184,20 @@
             }
         }
     
-        async function sendSerial(text2send) {
+        async function sendSerial_seq(text2send) {
             //var text = document.getElementById('sendInput').value;
             //document.getElementById('sendInput').value = "";
 
-            console.log("sendSerial()");
+            console.log("*** sendSerial_seq() ***");
+            console.log(text2send);
 
             if(port.connected){
                 const encoder = new TextEncoder();
                 const writer = port.writable.getWriter();
                 await writer.write(encoder.encode(text2send + "\n"));
                 writer.releaseLock();
-            }
+            }else{
+                console.log("Not Connected");
         }
     
         async function sendSerial() {
