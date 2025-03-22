@@ -93,9 +93,11 @@
         // グローバルでプレイヤーを定義
         let player;
         var idx;
+        let seq_list;
 
         // シーケンスファイル読み込み
         console.log("*** Loading Sequence File ***");
+        /*
         const response = await fetch("timetrack-fantasmic.txt");
         if (!response.ok) {
             //throw new Error(`レスポンスステータス: ${response.status}`);
@@ -105,6 +107,8 @@
         console.log(seq_text);
         const seq_list = text.split(/\t|\n/);
         console.log(seq_list);
+        */
+        loadSequence();
         
         // iframe のセットアップ
         function onYouTubeIframeAPIReady() {
@@ -190,6 +194,19 @@
             document.getElementById("indexId").textContent = text;
             const messages = text.split(/\t|\n/);
             console.log(messages);
+        }
+    
+        async function loadSequence() {
+            const response = await fetch("timetrack-fantasmic.txt");
+            if (!response.ok) {
+                throw new Error(`レスポンスステータス: ${response.status}`);
+                console.log("Error on Loading Sequence File");
+            }
+            const seq_text = await response.text();
+            console.log(seq_text);
+            document.getElementById("indexId").textContent = seq_text;
+            seq_list = text.split(/\t|\n/);
+            console.log(seq_list);
         }
          
 
