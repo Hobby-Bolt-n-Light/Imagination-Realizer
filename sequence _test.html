@@ -130,7 +130,6 @@
                 // 動画が再生中のとき
                 idx=0;
                 while(true){
-                    console.log('looping:' + idx);
                     if(seq_list[idx*3] == ''){
                         break;
                     }else if(parseFloat(seq_list[idx*3]) <= currentTime){
@@ -139,10 +138,20 @@
                         break;
                     }
                 }
+                console.log('now Index:' + idx);
                 checkTime = setInterval(() => {
                     currentTime = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
                     //console.log(currentTime);
                     document.getElementById("timeId").textContent = currentTime;
+
+                    if(seq_list[idx*3] == ''){
+                        document.getElementById("timeId").textContent = "Finished";
+                    }else if(parseFloat(seq_list[idx*3]) <= currentTime){
+                        idx += 1;
+                    }else{
+                        document.getElementById("timeId").textContent = currentTime;
+                    }
+                    
                 }, 50);
             } else if (event.data === YT.PlayerState.PAUSED) {
                 // 動画が一時停止されたとき
