@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+    <title>Magic at Home</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <meta charset="utf-8">
+    
+    <style>
+    </style>
+
+    <script>
+        (function(d) {
+            var config = {
+                kitId: 'pje1jhw',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+        })(document);
+
+
+        
+        function openModal(msgId) {
+          $(msgId).fadeIn();
+        }
+        function buttonClose(msgId) {
+          $(msgId).fadeOut();
+        }
+
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        console.log(userAgent);
+
+
+
+        
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+</head>
+
+<body>
+    
+    
+    <div class="all">
+
+        <div class="area_description">
+            シーケンス処理　テスト
+        </div>
+        
+        
+        <div>
+            <div class="space"></div>
+            <div class="area_buttons">
+                <button class="btn_big" id="step0" onclick="onConnectButtonClick()">Button 1</button><br>
+                <button class="btn_big" id="step1" onclick="sendSerial()">Button 2</button><br>
+                <button class="btn_big" id="step2" onclick="serialDisconnect()">Button 3</button><br>
+                <button class="btn_big" id="step2" onclick="fileRead()">Button 4</button><br>
+                <esp-web-install-button manifest="/incantation-AtomLite.json" class="button-flash-container">
+                    <button class="btn_big" id="step3" slot="activate" >ESP Download</button><br>
+                    <div class="area_error">
+                        <span class="text_error" slot="unsupported">お使いのブラウザは対応していません　Google Chromeでお試しください<br></span>
+                        <span class="text_error" slot="not-allowed">”HTTP”のURLでは対応していません<br></span>
+                    </div>
+                </esp-web-install-button>
+            </div>
+        </div>
+
+        <div>
+            <div id="mov1"></div>
+
+            <div class="text_time" id="timeId">0.00</div>
+            <div class="text_time" id="indexId">0</div>
+            
+
+
+        </div>
+        
+
+    </div>
+    
+
+    <script>
+    
+        // YouTube IFrame API スクリプトタグを生成
+        const scriptTag = document.createElement('script');
+        scriptTag.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(scriptTag); // body終了前にタグを出力
+
+        // グローバルでプレイヤーを定義
+        let player;
+        var idx;
+        
+        // iframe のセットアップ
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('mov1', {
+            //videoId: 'xxxxxxxxxxx', // 動画ID　
+            videoId: 'GVp65rqchko',
+            videoId: 'DjCv8GiRoWE',
+            events: {
+              onStateChange: onPlayerStateChange // 再生状態の変化を検知
+            }
+          });
+        }
+    
+        // 再生位置を監視する関数
+        function onPlayerStateChange(event) {
+            let checkTime;
+            if (event.data === YT.PlayerState.PLAYING) {
+                // 動画が再生中のとき
+                checkTime = setInterval(() => {
+                    const currentTime = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
+                    //console.log(currentTime);
+                    document.getElementById("timeId").textContent = currentTime;
+                }, 50);
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                // 動画が一時停止されたとき
+                clearInterval(checkTime); // 監視を停止
+            }
+        }
+
+        function showIndex(){
+            document.getElementById("indexId").textContent = idx;
+        }
+
+
+
+        
+        let port;
+        
+        async function onConnectButtonClick() {
+            try {
+                port = await navigator.serial.requestPort();
+                await port.open({ baudRate: 115200 });
+
+                //sendSerial();
+                /*
+                while (port.readable) {
+                    const reader = port.readable.getReader();
+    
+                    try {
+                        while (true) {
+                            const { value, done } = await reader.read();
+                            if (done) {
+                                addSerial("Canceled\n");
+                                break;
+                            }
+                            const inputValue = new TextDecoder().decode(value);
+                            addSerial(inputValue);
+                        }
+                    } catch (error) {
+                        addSerial("Error: Read" + error + "\n");
+                    } finally {
+                        reader.releaseLock();
+                    }
+                }
+                */
+            } catch (error) {
+                addSerial("Error: Open" + error + "\n");
+            }
+        }
+        
+    
+        function addSerial(msg) {
+            //var textarea = document.getElementById('outputArea');
+            //textarea.value += msg;
+            //textarea.scrollTop = textarea.scrollHeight;
+        }
+    
+        async function sendSerial() {
+            //var text = document.getElementById('sendInput').value;
+            var text = "IL7S04EB00";
+            //document.getElementById('sendInput').value = "";
+
+            console.log("sendSerial()");
+
+            if(port.connected){
+                const encoder = new TextEncoder();
+                const writer = port.writable.getWriter();
+                await writer.write(encoder.encode(text + "\n"));
+                writer.releaseLock();
+            }
+        }
+    
+        async function serialDisconnect() {
+            console.log("serialDisconnect");
+            if(port.connected){
+                const writer = port.writable.getWriter();
+                writer.releaseLock();
+                //await writer.close();
+                await port.close();
+            }
+        }
+    
+        async function fileRead() {
+            console.log("fileRead");
+            const response = await fetch("timetrack-fantasmic.txt");
+            const text = await response.text();
+            document.getElementById("indexId").textContent = text;
+        }
+         
+
+    </script>
+    
+        
+</body>
