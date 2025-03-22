@@ -131,7 +131,8 @@
                 idx=0;
                 while(true){
                     console.log('looping:' + idx);
-                        if(seq_list[idx*3] == ''){
+                    if(seq_list[idx*3] == ''){
+                        break;
                     }else if(parseFloat(seq_list[idx*3]) <= currentTime){
                         idx += 1;
                     }else{
