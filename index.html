@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+    <title>Magic at Home</title>
+    <link rel="stylesheet" type="text/css" href="index ver2.css">
+    <meta charset="utf-8">
+    
+    <style>
+    </style>
+
+    <script>
+        (function(d) {
+            var config = {
+                kitId: 'pje1jhw',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+        })(document);
+
+        let port;
+        
+        async function onConnectButtonClick() {
+            try {
+                port = await navigator.serial.requestPort();
+                await port.open({ baudRate: 115200 });
+
+                //sendSerial();
+                /*
+                while (port.readable) {
+                    const reader = port.readable.getReader();
+    
+                    try {
+                        while (true) {
+                            const { value, done } = await reader.read();
+                            if (done) {
+                                addSerial("Canceled\n");
+                                break;
+                            }
+                            const inputValue = new TextDecoder().decode(value);
+                            addSerial(inputValue);
+                        }
+                    } catch (error) {
+                        addSerial("Error: Read" + error + "\n");
+                    } finally {
+                        reader.releaseLock();
+                    }
+                }
+                */
+            } catch (error) {
+                addSerial("Error: Open" + error + "\n");
+            }
+        }
+        
+    
+        function addSerial(msg) {
+            //var textarea = document.getElementById('outputArea');
+            //textarea.value += msg;
+            //textarea.scrollTop = textarea.scrollHeight;
+        }
+    
+        async function sendSerial() {
+            //var text = document.getElementById('sendInput').value;
+            var text = "HELLO WORLD";
+            //document.getElementById('sendInput').value = "";
+
+            console.log("sendSerial()");
+
+            if(port.connected){
+                const encoder = new TextEncoder();
+                const writer = port.writable.getWriter();
+                await writer.write(encoder.encode(text + "\n"));
+                writer.releaseLock();
+            }
+        }
+    
+        async function serialDisconnect() {
+            console.log("serialDisconnect");
+            if(port.connected){
+                const writer = port.writable.getWriter();
+                writer.releaseLock();
+                //await writer.close();
+                await port.close();
+            }
+        }
+
+        
+        function openModal(msgId) {
+          $(msgId).fadeIn();
+        }
+        function buttonClose(msgId) {
+          $(msgId).fadeOut();
+        }
+
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        console.log(userAgent);
+
+
+
+        
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+</head>
+
+<body>
+    
+    
+    <div class="all" ontouchstart="">
+        <div class="area_top">
+        </div>
+
+        <div class="area_description">
+            <div class="desc_circle1"></div>
+            <div class="desc_circle2"></div>
+            <div class="desc_circle3"></div>
+            <div class="text_desc">
+            小さな空想や記憶が<br>
+            少しだけ現実味を帯びる場所
+            </div>
+        </div>
+        
+        
+        <div>
+            <div class="space"></div>
+            <div class="area_buttons">
+                <button class="btn_big" id="step0" onclick="openModal(md_prologue)">はじめに</button><br><br>
+                <button class="btn_big" id="step1" onclick="openModal(md_getready)">１．必要なもの</button><br>
+                <button class="btn_big" id="step2" onclick="openModal(md_download)">２．現実と接続</button><br>
+                <button class="btn_big" id="step3" onclick="openModal(md_movie)">３．リアライズ</button><br>
+            </div>
+        </div>
+
+        <div>
+            <div class="space"></div>
+            
+            <div id="md_prologue" class="modal_background">
+                <div class="modal_content">
+                    <span class="button-close" onclick="buttonClose(md_prologue)">×</span>
+                    <div class="text_popupTitle">この場所の使い方<br> </div>
+                    <div class="text_detail">
+                        映像に合わせてアイテムを連動させることができます。<br>
+                        現在対応しているのは以下のアイテムです。<br><br>
+                        <div class=""><img class="image"src="file:///Users/chihiro/Desktop/Folder/Web%20Application/Project-7%20Magic%20At%20Home/Line-HappiestMemoriesMaker.png" alt="Image not loaded"></div>
+                        <br>
+                        連動のためには別途ツールが必要です。<br>
+                        【必要なもの】をご覧の上、ご準備ください。<br><br>
+
+                        続いてツールをセットアップします。<br>
+                        パソコンとUSBケーブルで接続し、<br>【現実と接続】からSTARTボタンを押してください。<br>
+                        接続先を選択の上、INSTALLを押して完了までお待ちください。<br>
+                        成功するとツールのLEDがカラフルに光り始めます。
+
+                        
+                        
+                    </div>
+                    <div> </div>
+                </div>
+            </div>
+
+            <div id="md_getready" class="modal_background">
+                <div class="modal_content">
+                    <span class="button-close" onclick="buttonClose(md_getready)">×</span>
+                    <div class="text_popupTitle">必要なもの<br> </div>
+                    <div class="text_detail">
+                        パソコン（Windows / Mac）
+                        USBケーブル
+                        ツール（以下のいずれか）
+                        <div class="area_items">
+                            <img class="image2"src="PC.png" alt="Image not loaded">
+                            <img class="image2"src="M5C6.png" alt="Image not loaded">
+                            <img class="image2"src="M5AL.png" alt="Image not loaded">
+                            <img class="image2"src="M5AM.png" alt="Image not loaded">
+                        </div>
+                    </div>
+                    <div class="text_section_title">購入場所<br></div>
+                    <div class="area_shops">
+                        <div class="area_one_shop">
+                            <a type="button" class="area_URL" href="https://akizukidenshi.com/catalog/goods/search.aspx?seq=sp&search=x&keyword=M5STACK"><div class="text_URL" >秋月電子通商</div></a>
+                            オンライン<br>
+                            東京 - 秋葉原店<br>
+                            埼玉 - 八潮店<br>
+                        </div>
+                        <div class="area_one_shop">
+                            <a type="button" class="area_URL" href="https://www.sengoku.co.jp/mod/sgk_cart/search.php?multi=M5%20stack%20%E8%B5%A4%E5%A4%96%E7%B7%9A%20LED&search_btn=%E5%95%86%E5%93%81%E6%A4%9C%E7%B4%A2"><div class="text_URL" >千石電商</div></a>
+                            オンライン<br>
+                            東京 - 秋葉原店<br>
+                            大阪 - 日本橋店<br>
+                        </div>
+                        <div class="area_one_shop">
+                            <a type="button" class="area_URL" href="https://akizukidenshi.com/catalog/default.aspx"><div class="text_URL" >マルツパーツ</div></a>
+                            オンライン<br>
+                            東京 - 秋葉原店<br>
+                            大阪 - 日本橋店<br>
+                        </div>
+                    </div>
+                    <div class="area_shops">
+                        <div class="area_one_shop">
+                            <a type="button" class="area_URL" href="https://akizukidenshi.com/catalog/default.aspx"><div class="text_URL" >Switch Science</div></a>
+                            オンライン<br>
+                            東京 - 秋葉原店<br>
+                            大阪 - 日本橋店<br>
+                        </div>
+                        <div class="area_one_shop">
+                            <a type="button" class="area_URL" href="https://akizukidenshi.com/catalog/default.aspx"><div class="text_URL" >秋月電子通商</div></a>
+                            オンライン<br>
+                            東京 - 秋葉原店<br>
+                            大阪 - 日本橋店<br>
+                        </div>
+                    </div>
+                    <div> </div>
+                </div>
+            </div>
+            
+            <div id="md_download" class="modal_background">
+                <div class="modal_content">
+                    <span class="button-close" onclick="buttonClose(md_download)">×</span>
+                    <div class="text_popupTitle">現実と接続<br> </div>
+                    <esp-web-install-button manifest="/incantation-AtomLite.json" class="button-flash-container">
+                        <button class="btn_big" id="step3" slot="activate" >START</button><br>
+                        <div class="area_error">
+                            <span class="text_error" slot="unsupported">お使いのブラウザは対応していません　Google Chromeでお試しください<br></span>
+                            <span class="text_error" slot="not-allowed">”HTTP”のURLでは対応していません<br></span>
+                        </div>
+                    </esp-web-install-button>
+                    <br>
+                    <button class="btn_big" id="step3" slot="activate" >Test</button><br>
+                    <div> </div>
+                </div>
+            </div>
+            
+            <div id="md_movie" class="modal_background">
+                <div class="modal_content">
+                    <span class="button-close" onclick="buttonClose(md_movie)">×</span>
+                    <div class="text_popupTitle">リアライズ<br> </div>
+                    <div> </div>
+                    <div id="mov1"></div>
+                    <div class="text_time" id="timeId">0.00</div>
+                    <button class="btn_big" id="step3" onclick="onConnectButtonClick()">現実とつなげる</button>
+                </div>
+            </div>
+            
+            <div id="md_error" class="modal_background">
+                <div class="modal_content">
+                    <span class="button-close" onclick="buttonClose(md_movie)">×</span>
+                    <div class="text_popupTitle">リアライズ<br> </div>
+                    <div>パソコンのGoogle Chromeをご使用ください</div>
+                </div>
+            </div>
+
+
+        </div>
+        
+
+    </div>
+    
+
+    <script>
+    
+        // YouTube IFrame API スクリプトタグを生成
+        const scriptTag = document.createElement('script');
+        scriptTag.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(scriptTag); // body終了前にタグを出力
+
+        // グローバルでプレイヤーを定義
+        let player;
+        
+        // iframe のセットアップ
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('mov1', {
+            //videoId: 'xxxxxxxxxxx', // 動画ID
+            //videoId: 'GVp65rqchko',//RFTS
+            videoId: 'DjCv8GiRoWE',//TestMovie
+            events: {
+              onStateChange: onPlayerStateChange // 再生状態の変化を検知
+            }
+          });
+        }
+
+        
+    
+        // 再生位置を監視する関数
+        function onPlayerStateChange(event) {
+          let checkTime;
+          if (event.data === YT.PlayerState.PLAYING) {
+            // 動画が再生中のとき
+            checkTime = setInterval(() => {
+              const currentTime = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
+              //console.log(currentTime);
+              document.getElementById("timeId").textContent = currentTime;
+            }, 50);
+          } else if (event.data === YT.PlayerState.PAUSED) {
+            // 動画が一時停止されたとき
+            clearInterval(checkTime); // 監視を停止
+          }
+        }
+
+
+         
+
+    </script>
+    
+        
+</body>
