@@ -191,40 +191,40 @@
 
         
         function onPlayerStateChange_2(event) {
-            let checkTime;
+            let checkTime2;
             if (event.data === YT.PlayerState.PLAYING) {
                 // 動画が再生中のとき
-                idx=0;
+                idx2=0;
                 while(true){
-                    if(seq_list[idx*3] == ''){
+                    if(seq_list2[idx2*3] == ''){
                         break;
-                    }else if(parseFloat(seq_list[idx*3]) <= currentTime){
-                        idx += 1;
+                    }else if(parseFloat(seq_list2[idx2*3]) <= currentTime2){
+                        idx2 += 1;
                     }else{
                         break;
                     }
                 }
-                console.log('now Index:' + idx);
-                checkTime = setInterval(() => {
-                    currentTime = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
+                console.log('now Index:' + idx2);
+                checkTime2 = setInterval(() => {
+                    currentTime2 = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
                     //console.log(currentTime);
-                    document.getElementById("timeId2").textContent = currentTime;
+                    document.getElementById("timeId2").textContent = currentTime2;
 
-                    if(seq_list[idx*3] == ''){
+                    if(seq_list2[idx2*3] == ''){
                         document.getElementById("timeId2").textContent = "Finished";
-                    }else if(parseFloat(seq_list[idx*3]) <= (currentTime+0.3)){
-                        console.log('now Index:' + idx);
-                        console.log('Content:' + seq_list[idx*3+2]);
-                        sendSerial_seq(seq_list[idx*3+2]);
-                        idx += 1;
+                    }else if(parseFloat(seq_list2[idx2*3]) <= (currentTime2+0.3)){
+                        console.log('now Index:' + idx2);
+                        console.log('Content:' + seq_list2[idx2*3+2]);
+                        sendSerial_seq(seq_list2[idx2*3+2]);
+                        idx2 += 1;
                     }else{
-                        document.getElementById("timeId2").textContent = currentTime;
+                        document.getElementById("timeId2").textContent = currentTime2;
                     }
                     
                 }, 50);
             } else if (event.data === YT.PlayerState.PAUSED) {
                 // 動画が一時停止されたとき
-                clearInterval(checkTime); // 監視を停止
+                clearInterval(checkTime2); // 監視を停止
                 
             }
         }
@@ -320,7 +320,7 @@
             const response = await fetch("timetrack-35th.txt");
             if (!response.ok) {
                 throw new Error(`レスポンスステータス: ${response.status}`);
-                console.log("Error on Loading Sequence File");
+                console.log("Error on Loading Sequence File 2");
             }
             const seq_text2 = await response.text();
             console.log(seq_text2);
