@@ -125,7 +125,7 @@
         console.log("*** Loading Sequence File 2 ***");
         loadSequence2();
 
-        document.getElementById("indexId").textContent = '最終更新：動画２つ目追加';
+        document.getElementById("indexId").textContent = '最終更新：動画２つ目追加　ID';
         
         // iframe のセットアップ
         function onYouTubeIframeAPIReady() {
@@ -138,7 +138,7 @@
               onStateChange: onPlayerStateChange // 再生状態の変化を検知
             }
           });
-          player = new YT.Player('mov2', {
+          player2 = new YT.Player('mov2', {
             //videoId: 'xxxxxxxxxxx', // 動画ID　
             //videoId: 'GVp65rqchko',
             //videoId: 'DjCv8GiRoWE',//Fantasmic
