@@ -74,6 +74,11 @@
             <div class="text_time" id="timeId">0.00</div>
             <div class="text_time" id="indexId">0</div>
             
+            <div id="mov2"></div>
+            
+            <div class="text_time" id="timeId2">0.00</div>
+            <div class="text_time" id="indexId">0</div>
+            
 
 
         </div>
@@ -95,6 +100,11 @@
         var idx;
         let seq_list;
         var currentTime;
+        
+        let player2;
+        var idx2;
+        let seq_list2;
+        var currentTime2;
 
         // シーケンスファイル読み込み
         console.log("*** Loading Sequence File ***");
@@ -111,6 +121,10 @@
         */
         loadSequence();
 
+        // シーケンスファイル読み込み2
+        console.log("*** Loading Sequence File 2 ***");
+        loadSequence2();
+
         document.getElementById("indexId").textContent = '最終更新：タイムラグ調整C';
         
         // iframe のセットアップ
@@ -118,9 +132,19 @@
           player = new YT.Player('mov1', {
             //videoId: 'xxxxxxxxxxx', // 動画ID　
             //videoId: 'GVp65rqchko',
-            videoId: 'DjCv8GiRoWE',
+            videoId: 'DjCv8GiRoWE',//Fantasmic
+            //videoId: 'y5hY8xTxYJM',//35th GF
             events: {
               onStateChange: onPlayerStateChange // 再生状態の変化を検知
+            }
+          });
+          player = new YT.Player('mov2', {
+            //videoId: 'xxxxxxxxxxx', // 動画ID　
+            //videoId: 'GVp65rqchko',
+            //videoId: 'DjCv8GiRoWE',//Fantasmic
+            videoId: 'y5hY8xTxYJM',//35th GF
+            events: {
+              onStateChange: onPlayerStateChange_2 // 再生状態の変化を検知
             }
           });
         }
@@ -155,6 +179,46 @@
                         idx += 1;
                     }else{
                         document.getElementById("timeId").textContent = currentTime;
+                    }
+                    
+                }, 50);
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                // 動画が一時停止されたとき
+                clearInterval(checkTime); // 監視を停止
+                
+            }
+        }
+
+        
+        function onPlayerStateChange_2(event) {
+            let checkTime;
+            if (event.data === YT.PlayerState.PLAYING) {
+                // 動画が再生中のとき
+                idx=0;
+                while(true){
+                    if(seq_list[idx*3] == ''){
+                        break;
+                    }else if(parseFloat(seq_list[idx*3]) <= currentTime){
+                        idx += 1;
+                    }else{
+                        break;
+                    }
+                }
+                console.log('now Index:' + idx);
+                checkTime = setInterval(() => {
+                    currentTime = Math.floor(player.getCurrentTime()*100)/100; // 再生位置を取得
+                    //console.log(currentTime);
+                    document.getElementById("timeId2").textContent = currentTime;
+
+                    if(seq_list[idx*3] == ''){
+                        document.getElementById("timeId2").textContent = "Finished";
+                    }else if(parseFloat(seq_list[idx*3]) <= (currentTime+0.3)){
+                        console.log('now Index:' + idx);
+                        console.log('Content:' + seq_list[idx*3+2]);
+                        sendSerial_seq(seq_list[idx*3+2]);
+                        idx += 1;
+                    }else{
+                        document.getElementById("timeId2").textContent = currentTime;
                     }
                     
                 }, 50);
@@ -250,6 +314,18 @@
             console.log(seq_text);
             seq_list = seq_text.split(/\t|\n/);
             console.log(seq_list);
+        }
+    
+        async function loadSequence2() {
+            const response = await fetch("timetrack-35th.txt");
+            if (!response.ok) {
+                throw new Error(`レスポンスステータス: ${response.status}`);
+                console.log("Error on Loading Sequence File");
+            }
+            const seq_text2 = await response.text();
+            console.log(seq_text2);
+            seq_list2 = seq_text2.split(/\t|\n/);
+            console.log(seq_list2);
         }
          
 
