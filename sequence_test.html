@@ -125,7 +125,7 @@
         console.log("*** Loading Sequence File 2 ***");
         loadSequence2();
 
-        document.getElementById("indexId").textContent = '最終更新：動画２つ目追加　ID';
+        document.getElementById("indexId").textContent = '最終更新：接続時・解除時通信の追加';
         
         // iframe のセットアップ
         function onYouTubeIframeAPIReady() {
@@ -242,6 +242,16 @@
             try {
                 port = await navigator.serial.requestPort();
                 await port.open({ baudRate: 115200 });
+                
+                if(port.connected){
+                    const encoder = new TextEncoder();
+                    const writer = port.writable.getWriter();
+                    await writer.write(encoder.encode("#GM\n"));
+                    await writer.write(encoder.encode("#CS\n"));
+                    writer.releaseLock();
+                }else{
+                    console.log("Not Connected");
+                }
 
             } catch (error) {
                 addSerial("Error: Open" + error + "\n");
@@ -284,6 +294,7 @@
             console.log("serialDisconnect");
             if(port.connected){
                 const writer = port.writable.getWriter();
+                await writer.write(encoder.encode("#DC\n"));
                 writer.releaseLock();
                 //await writer.close();
                 await port.close();
