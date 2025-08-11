@@ -293,6 +293,7 @@
         async function serialDisconnect() {
             console.log("serialDisconnect");
             if(port.connected){
+                const encoder = new TextEncoder();
                 const writer = port.writable.getWriter();
                 await writer.write(encoder.encode("#DC\n"));
                 writer.releaseLock();
